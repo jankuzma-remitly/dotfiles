@@ -23,10 +23,10 @@ fi
 
 cp "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
 cp "$DOTFILES/yabai/.yabairc" "$HOME/.yabairc"
-cp "$DOTFILES/hammerspoon" "$HOME/.hammerspoon"
+cp -r "$DOTFILES/hammerspoon" "$HOME/.hammerspoon"
 mkdir -p "$HOME/.config"
-cp "$DOTFILES/nvim" "$HOME/.config/nvim"
-cp "$DOTFILES/alacritty" "$HOME/.config/alacritty"
+cp -r "$DOTFILES/nvim" "$HOME/.config/nvim"
+cp -r "$DOTFILES/alacritty" "$HOME/.config/alacritty"
 
 if [ ! -f "$HOME/.secrets" ]; then
   echo "# Machine-specific secrets - NEVER commit this file" >"$HOME/.secrets"
