@@ -15,14 +15,21 @@ link() {
   echo "Linked $dst -> $src"
 }
 
+if command -v brew &>/dev/null; then
+  brew bundle check --file="$DOTFILES/Brewfile" || brew bundle --file="$DOTFILES/Brewfile"
+else
+  echo "Homebrew not found - skipping brew bundle"
+fi
+
 link "$DOTFILES/yabai/.yabairc" "$HOME/.yabairc"
 link "$DOTFILES/hammerspoon" "$HOME/.hammerspoon"
 mkdir -p "$HOME/.config"
 link "$DOTFILES/nvim" "$HOME/.config/nvim"
+link "$DOTFILES/alacritty" "$HOME/.config/alacritty"
 
 if ! grep -q 'dotfiles/zsh/aliases.zsh' "$HOME/.zshrc" 2>/dev/null; then
   echo "" >> "$HOME/.zshrc"
-  echo "source ~/dotfiles/zsh/aliases.zsh" >> "$HOME/.zshrc"
+  echo "source $DOTFILES/zsh/aliases.zsh" >> "$HOME/.zshrc"
   echo "Added aliases.zsh source line to .zshrc"
 else
   echo "aliases.zsh already sourced in .zshrc"
