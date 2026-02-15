@@ -14,7 +14,7 @@ export EDITOR='nvim'
 export TERM_PROGRAM=Alacritty
 export TERM=alacritty
 export NVM_DIR="$HOME/.nvm"
-export PATH="$(go env GOPATH)/bin:$PATH"
+command -v go &>/dev/null && export PATH="$(go env GOPATH)/bin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$PATH:$HOME/.local/bin"
 
@@ -36,7 +36,7 @@ docker-compose
 fzf
 )
 
-source $ZSH/oh-my-zsh.sh
+[ -f "$ZSH/oh-my-zsh.sh" ] && source "$ZSH/oh-my-zsh.sh"
 
 # ============================================================================
 # LAZY LOADERS
@@ -69,7 +69,7 @@ if [[ -o interactive ]]; then
   }
 fi
 
-eval "$(zoxide init zsh)"
+command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
 
 rbenv() {
   unset -f rbenv
