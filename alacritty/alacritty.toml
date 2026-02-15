@@ -1,0 +1,102 @@
+[env]
+TERM = "xterm-256color"
+
+[window]
+# Window padding for better aesthetics
+padding.x = 12
+padding.y = 12
+
+# Decorations - buttonless for a clean look
+decorations = "Buttonless"
+
+# Transparency and blur effect
+opacity = 0.95
+blur = false
+
+# Option key behavior for better terminal compatibility
+option_as_alt = "Both"
+
+# Window dimensions
+dimensions.columns = 120
+dimensions.lines = 40
+
+[font]
+# Using 0xProto Nerd Font for icon support
+normal.family = "0xProto Nerd Font Mono"
+normal.style = "Regular"
+
+italic.family = "0xProto Nerd Font Mono"
+italic.style = "Italic"
+
+bold.family = "0xProto Nerd Font Mono"
+bold.style = "Bold"
+
+bold_italic.family = "0xProto Nerd Font Mono"
+bold_italic.style = "Bold Italic"
+
+# Font size - adjust to your preference
+size = 14.0
+
+# Better font rendering
+offset.x = 0
+offset.y = 0
+
+# Glyph offset for better alignment
+glyph_offset.x = 0
+glyph_offset.y = 0
+
+[bell]
+# Disable visual bell
+duration = 0
+
+[scrolling]
+# Keep scrollback history
+history = 10000
+multiplier = 3
+
+[selection]
+# Semantic selection for better text selection
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\\t"
+save_to_clipboard = true
+
+[cursor]
+# Beam cursor style
+style = "Beam"
+vi_mode_style = "Block"
+thickness = 0.15
+
+# Cursor blinking
+unfocused_hollow = true
+
+[keyboard]
+# Bindings for common operations
+bindings = [
+  # Copy/Paste
+  { key = "C", mods = "Command", action = "Copy" },
+  { key = "V", mods = "Command", action = "Paste" },
+  
+  # New window
+  { key = "N", mods = "Command", action = "CreateNewWindow" },
+  
+  # Increase/Decrease font size
+  { key = "Plus", mods = "Command", action = "IncreaseFontSize" },
+  { key = "Minus", mods = "Command", action = "DecreaseFontSize" },
+  { key = "0", mods = "Command", action = "ResetFontSize" },
+]
+
+[general]
+# Alacritty Configuration
+# Modern, efficient terminal setup for macOS
+
+# Import color theme - Choose your favorite\!
+# Popular options: catppuccin_mocha, dracula, nord, tokyonight, gruvbox_dark, ayu_dark
+import = [
+  "~/.config/alacritty/themes/themes/catppuccin_mocha.toml"
+]
+
+[terminal]
+
+[terminal.shell]
+# Use zsh as default shell
+program = "/bin/zsh"
+args = ["-l"]

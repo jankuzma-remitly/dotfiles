@@ -1,0 +1,5 @@
+.secrets
+*.bak
+.DS_Store
+hammerspoon/quickslots.json
+hammerspoon/layouts.json
