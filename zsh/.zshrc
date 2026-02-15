@@ -1,9 +1,4 @@
 # ============================================================================
-# SHELL STARTUP TRACKING
-# ============================================================================
-ZSH_START_TIME=${ZSH_START_TIME:-$(($(date +%s) * 1000))}
-
-# ============================================================================
 # ENVIRONMENT VARIABLES
 # ============================================================================
 
@@ -77,21 +72,6 @@ rbenv() {
   rbenv "$@"
 }
 
-# ============================================================================
-# STARTUP TIME
-# ============================================================================
-
-if [[ -n "$ZSH_START_TIME" ]]; then
-  ZSH_END_TIME=$(($(date +%s) * 1000))
-  ZSH_ELAPSED=$(( ZSH_END_TIME - ZSH_START_TIME ))
-  if [[ $ZSH_ELAPSED -lt 1000 ]]; then
-    echo "Shell startup: ${ZSH_ELAPSED}ms"
-  else
-    ZSH_ELAPSED_SEC=$(( ZSH_ELAPSED / 1000 ))
-    echo "Shell startup: ${ZSH_ELAPSED_SEC}s"
-  fi
-  unset ZSH_START_TIME ZSH_END_TIME ZSH_ELAPSED
-fi
 
 # Portable aliases and functions
 source "$HOME/dotfiles/zsh/aliases.zsh"
