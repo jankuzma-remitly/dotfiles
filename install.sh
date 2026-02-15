@@ -21,15 +21,15 @@ else
   echo "Homebrew not found - skipping brew bundle"
 fi
 
-link "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
-link "$DOTFILES/yabai/.yabairc" "$HOME/.yabairc"
-link "$DOTFILES/hammerspoon" "$HOME/.hammerspoon"
+cp "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
+cp "$DOTFILES/yabai/.yabairc" "$HOME/.yabairc"
+cp "$DOTFILES/hammerspoon" "$HOME/.hammerspoon"
 mkdir -p "$HOME/.config"
-link "$DOTFILES/nvim" "$HOME/.config/nvim"
-link "$DOTFILES/alacritty" "$HOME/.config/alacritty"
+cp "$DOTFILES/nvim" "$HOME/.config/nvim"
+cp "$DOTFILES/alacritty" "$HOME/.config/alacritty"
 
 if [ ! -f "$HOME/.secrets" ]; then
-  echo "# Machine-specific secrets - NEVER commit this file" > "$HOME/.secrets"
+  echo "# Machine-specific secrets - NEVER commit this file" >"$HOME/.secrets"
   chmod 600 "$HOME/.secrets"
   echo "Created empty ~/.secrets - add your keys there"
 fi
