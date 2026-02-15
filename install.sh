@@ -21,26 +21,12 @@ else
   echo "Homebrew not found - skipping brew bundle"
 fi
 
+link "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
 link "$DOTFILES/yabai/.yabairc" "$HOME/.yabairc"
 link "$DOTFILES/hammerspoon" "$HOME/.hammerspoon"
 mkdir -p "$HOME/.config"
 link "$DOTFILES/nvim" "$HOME/.config/nvim"
 link "$DOTFILES/alacritty" "$HOME/.config/alacritty"
-
-if ! grep -q 'dotfiles/zsh/aliases.zsh' "$HOME/.zshrc" 2>/dev/null; then
-  echo "" >> "$HOME/.zshrc"
-  echo "source $DOTFILES/zsh/aliases.zsh" >> "$HOME/.zshrc"
-  echo "Added aliases.zsh source line to .zshrc"
-else
-  echo "aliases.zsh already sourced in .zshrc"
-fi
-
-if ! grep -q 'source ~/.secrets' "$HOME/.zshrc" 2>/dev/null; then
-  echo 'source ~/.secrets 2>/dev/null' >> "$HOME/.zshrc"
-  echo "Added .secrets source line to .zshrc"
-else
-  echo ".secrets already sourced in .zshrc"
-fi
 
 if [ ! -f "$HOME/.secrets" ]; then
   echo "# Machine-specific secrets - NEVER commit this file" > "$HOME/.secrets"
