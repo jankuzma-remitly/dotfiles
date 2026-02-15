@@ -10,7 +10,7 @@ alias gs="git status"
 alias gp="git push"
 alias gch='git checkout'
 
-_ai_prompt() {
+function _ai_prompt {
   if command -v auggie &> /dev/null; then
     auggie -p -q "$1" 2>/dev/null
   else
@@ -18,7 +18,7 @@ _ai_prompt() {
   fi
 }
 
-aicommit() {
+function aicommit {
   local diff=$(git diff --cached)
   local branch=$(git branch --show-current)
   local ticket=$(echo "$branch" | grep -oE 'GRO-[0-9]+' | head -1)
@@ -58,7 +58,7 @@ $diff"
   fi
 }
 
-aipr() {
+function aipr {
   local branch=$(git branch --show-current)
   local ticket=$(echo "$branch" | grep -oE 'GRO-[0-9]+' | head -1)
 
@@ -112,7 +112,7 @@ $diff"
   fi
 }
 
-aipr-desc() {
+function aipr-desc {
   local pr_body=$(gh pr view --json body -q '.body')
 
   local base_branch="main"
@@ -158,7 +158,7 @@ Output ONLY the complete updated PR description, nothing else."
   fi
 }
 
-ios2() {
+function ios2 {
   cd ~/projects/narwhal
 
   echo "Starting packager..."
@@ -181,6 +181,6 @@ ios2() {
   echo "iOS 2 PID: $IOS2_PID"
 }
 
-zshr() {
+function zshr {
   exec zsh -l
 }
