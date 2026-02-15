@@ -94,5 +94,5 @@ if [[ -n "$ZSH_START_TIME" ]]; then
 fi
 
 # Portable aliases and functions
-DOTFILES="$(dirname "$(dirname "$(readlink -f "${(%):-%x}")")")"
+DOTFILES="${${(%):-%x}:A:h:h}"
 source "$DOTFILES/zsh/aliases.zsh" 2>/dev/null

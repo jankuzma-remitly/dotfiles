@@ -1,1 +1,2 @@
 brew "z"
+cask "alacritty"
