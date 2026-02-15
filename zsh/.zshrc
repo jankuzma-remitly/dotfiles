@@ -94,5 +94,4 @@ if [[ -n "$ZSH_START_TIME" ]]; then
 fi
 
 # Portable aliases and functions
-DOTFILES="${${(%):-%x}:A:h:h}"
-source "$DOTFILES/zsh/aliases.zsh" 2>/dev/null
+source "$HOME/dotfiles/zsh/aliases.zsh"
