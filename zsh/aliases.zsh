@@ -163,19 +163,19 @@ ios2() {
 
   echo "Starting packager..."
   yarn native:packager &
-  PACKAGER_PID=$\!
+  PACKAGER_PID=$!
 
   sleep 5
 
   echo "Starting iOS simulator 1 (iPhone 16e)..."
   DEFAULT_IOS_SIMULATOR="iPhone 16e" yarn ios:virtual &
-  IOS1_PID=$\!
+  IOS1_PID=$!
 
   echo "Starting iOS simulator 2 (iPhone SE)..."
   DEFAULT_IOS_SIMULATOR="iPhone 17 Pro" yarn ios:virtual &
-  IOS2_PID=$\!
+  IOS2_PID=$!
 
-  echo "Both iOS simulators started\!"
+  echo 'Both iOS simulators started!'
   echo "Packager PID: $PACKAGER_PID"
   echo "iOS 1 PID: $IOS1_PID"
   echo "iOS 2 PID: $IOS2_PID"
