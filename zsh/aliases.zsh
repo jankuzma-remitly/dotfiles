@@ -182,5 +182,5 @@ ios2() {
 }
 
 zshr() {
-  source ~/.zshrc
+  exec zsh -l
 }
