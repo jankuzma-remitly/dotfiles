@@ -68,7 +68,7 @@ function M.turbo_lint()
 	vim.notify("Running turbo lint...", vim.log.levels.INFO)
 	
 	vim.fn.jobstart({ "npm", "run", "lint" }, {
-		cwd = "/Users/jankuzma/firma/projects/golfbites",
+		cwd = vim.fn.getcwd(),
 		stdout_buffered = true,
 		stderr_buffered = true,
 		on_stdout = function(_, data)
@@ -125,7 +125,7 @@ function M.parse_lint_output(data)
 				print("Matched:", file, lnum, col, severity, msg)
 				local abs_file = file
 				if not vim.startswith(file, "/") then
-					abs_file = "/Users/jankuzma/firma/projects/golfbites/" .. file
+					abs_file = vim.fn.getcwd() .. "/" .. file
 				end
 				
 				-- Add to quickfix
@@ -192,7 +192,7 @@ end
 -- Test function to see raw output
 function M.test_lint_output()
 	vim.cmd("new")
-	vim.cmd("term cd /Users/jankuzma/firma/projects/golfbites && npm run lint")
+	vim.cmd("term cd " .. vim.fn.getcwd() .. " && npm run lint")
 end
 
 -- Simple diagnostic test

@@ -1,5 +1,11 @@
 return {
 	{
+		"augmentcode/augment.vim",
+		keymaps = {
+			chat = "<leader>aa",
+		},
+	},
+	{
 		enabled = false,
 		"folke/flash.nvim",
 		---@type Flash.Config

@@ -59,6 +59,9 @@ keymap.set("n", "<C-w><right>", "<C-w>>")
 keymap.set("n", "<C-w><gp>", "<C-w>+")
 keymap.set("n", "<C-w><down>", "<C-w>-")
 
+-- Augment
+keymap.set("n", "<leader>ac", ":Augment chat<CR>", opts)
+
 -- Diagnostics
 keymap.set("n", "<C-'>", function()
 	vim.diagnostic.goto_next()

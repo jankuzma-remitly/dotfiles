@@ -1,4 +1,27 @@
 return {
+	-- base46 themes (provides 68 NvChad themes without replacing UI components)
+	{
+		"nvchad/ui",
+		lazy = true,
+	},
+
+	{
+		"nvchad/base46",
+		dependencies = { "nvchad/ui" },
+		build = function()
+			require("base46").load_all_highlights()
+		end,
+	},
+
+	{ "nvchad/volt", lazy = true },
+
+	{
+		"nvzone/typr",
+		dependencies = "nvchad/volt",
+		cmd = { "Typr", "TyprStats" },
+		opts = {},
+	},
+
 	-- messages, cmdline and the popupmenu
 	{
 		"folke/noice.nvim",
@@ -33,7 +56,6 @@ return {
 
 			opts.commands = {
 				all = {
-					-- options for the message history that you get with `:Noice`
 					view = "split",
 					opts = { enter = true, format = "details" },
 					filter = {},
@@ -82,7 +104,6 @@ return {
 		opts = {
 			options = {
 				mode = "tabs",
-				-- separator_style = "slant",
 				show_buffer_close_icons = false,
 				show_close_icon = false,
 			},
