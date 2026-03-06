@@ -1,0 +1,171 @@
+start-at-login = true
+after-startup-command = [
+  'exec-and-forget borders active_color=0xffff0000 inactive_color=0x00000000 width=6.0',
+  'exec-and-forget sketchybar'
+]
+
+exec-on-workspace-change = ['/bin/bash', '-c',
+  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
+
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+enable-normalization-flatten-containers = false
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+accordion-padding = 30
+
+[gaps]
+inner.horizontal = 4
+inner.vertical   = 4
+outer.left       = 4
+outer.right      = 4
+outer.top        = 28
+outer.bottom     = 4
+
+# ── Workspaces ────────────────────────────────────────────────────────────────
+# To reorder: change the workspace name on the RIGHT side of each binding below.
+# Monitor assignments and window rules use names — they never need reordering.
+[workspace-to-monitor-force-assignment]
+term  = 'main'
+brow  = 'main'
+srv   = 'main'
+emu   = 'main'
+comm  = 'secondary'
+cal   = 'secondary'
+music = 'secondary'
+
+[key-mapping]
+preset = 'qwerty'
+
+[mode.main.binding]
+cmd-alt-ctrl-r = 'exec-and-forget /bin/bash -c "aerospace reload-config && brew services restart sketchybar"'
+
+# Focus windows
+ctrl-alt-h = 'focus left'
+ctrl-alt-j = 'focus down'
+ctrl-alt-k = 'focus up'
+ctrl-alt-l = 'focus right'
+
+# Focus monitor
+ctrl-alt-s = 'focus-monitor left'
+ctrl-alt-g = 'focus-monitor right'
+
+# Move windows
+ctrl-alt-shift-h = 'move left'
+ctrl-alt-shift-j = 'move down'
+ctrl-alt-shift-k = 'move up'
+ctrl-alt-shift-l = 'move right'
+
+# Move window to other monitor
+cmd-alt-ctrl-m = 'move-node-to-monitor recent'
+
+# ── Workspace switching — edit names here to reorder ─────────────────────────
+ctrl-alt-1 = 'workspace term'
+ctrl-alt-2 = 'workspace brow'
+ctrl-alt-3 = 'workspace emu'
+ctrl-alt-4 = 'workspace srv'
+ctrl-alt-5 = 'workspace comm'
+ctrl-alt-6 = 'workspace cal'
+ctrl-alt-7 = 'workspace music'
+
+ctrl-alt-shift-1 = ['move-node-to-workspace term',  'workspace term']
+ctrl-alt-shift-2 = ['move-node-to-workspace brow',  'workspace brow']
+ctrl-alt-shift-3 = ['move-node-to-workspace emu',   'workspace emu']
+ctrl-alt-shift-4 = ['move-node-to-workspace srv',   'workspace srv']
+ctrl-alt-shift-5 = ['move-node-to-workspace comm',  'workspace comm']
+ctrl-alt-shift-6 = ['move-node-to-workspace cal',   'workspace cal']
+ctrl-alt-shift-7 = ['move-node-to-workspace music', 'workspace music']
+
+# Layout switching
+ctrl-alt-t = 'layout tiles'
+ctrl-alt-a = 'layout accordion'
+ctrl-alt-f = 'layout floating tiling'
+
+# Resize
+ctrl-alt-equal = 'resize smart +50'
+ctrl-alt-minus = 'resize smart -50'
+ctrl-alt-e     = 'balance-sizes'
+
+# Enter resize mode
+ctrl-alt-r = 'mode resize'
+
+[mode.resize.binding]
+h     = 'resize smart -50'
+j     = 'resize smart +50'
+k     = 'resize smart -50'
+l     = 'resize smart +50'
+enter = 'mode main'
+esc   = 'mode main'
+
+# ── Auto-assign windows to workspaces ────────────────────────────────────────
+
+# Alacritty → srv by default; move your tmux window to term manually once
+[[on-window-detected]]
+if.app-id = 'org.alacritty'
+run = 'move-node-to-workspace srv'
+
+# iOS Simulator — float so it keeps its natural device size
+[[on-window-detected]]
+if.app-id = 'com.apple.iphonesimulator'
+run = ['layout floating', 'move-node-to-workspace emu']
+
+# Android Emulator — floated, goes to emu workspace
+[[on-window-detected]]
+if.app-name-regex-substring = 'Android Emulator'
+run = ['layout floating', 'move-node-to-workspace emu']
+
+# Comms
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = 'move-node-to-workspace comm'
+
+# Calendar
+[[on-window-detected]]
+if.app-id = 'com.apple.iCal'
+run = 'move-node-to-workspace cal'
+
+# Spotify
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = 'move-node-to-workspace music'
+
+# ── Float rules (dialogs / utility windows) ───────────────────────────────────
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+if.window-title-regex-substring = 'Co(py|nnect)|Move|Info|Pref'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.appstore'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.ActivityMonitor'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.calculator'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Dictionary'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = '^mpv$'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = '^KeePassXC$'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Pritunl'
+run = 'layout floating'

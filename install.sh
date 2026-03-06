@@ -22,11 +22,11 @@ else
 fi
 
 cp "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
-cp "$DOTFILES/yabai/.yabairc" "$HOME/.yabairc"
-cp -r "$DOTFILES/hammerspoon" "$HOME/.hammerspoon"
 mkdir -p "$HOME/.config"
 cp -r "$DOTFILES/nvim" "$HOME/.config/nvim"
 cp -r "$DOTFILES/alacritty" "$HOME/.config/alacritty"
+link "$DOTFILES/aerospace/.aerospace.toml" "$HOME/.aerospace.toml"
+link "$DOTFILES/sketchybar" "$HOME/.config/sketchybar"
 
 if [ ! -f "$HOME/.secrets" ]; then
   echo "# Machine-specific secrets - NEVER commit this file" >"$HOME/.secrets"

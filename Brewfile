@@ -1,2 +1,5 @@
 brew "z"
+brew "sketchybar"
 cask "alacritty"
+tap "nikitabobko/tap"
+cask "nikitabobko/tap/aerospace"
