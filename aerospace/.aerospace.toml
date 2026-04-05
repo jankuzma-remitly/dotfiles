@@ -41,6 +41,7 @@ preset = 'qwerty'
 
 [mode.main.binding]
 cmd-alt-ctrl-r = 'exec-and-forget /bin/bash -c "aerospace reload-config && brew services restart sketchybar"'
+cmd-alt-ctrl-s = 'exec-and-forget /bin/bash -c "~/.config/raycast/scripts/aerospace-cold-start.sh"'
 
 # Focus windows
 ctrl-alt-h = 'focus left'
@@ -102,6 +103,13 @@ esc   = 'mode main'
 # ── Auto-assign windows to workspaces ────────────────────────────────────────
 
 # Alacritty → srv by default; move your tmux window to term manually once
+# Alacritty with title "term" → tmux workspace
+[[on-window-detected]]
+if.app-id = 'org.alacritty'
+if.window-title-regex-substring = 'term'
+run = 'move-node-to-workspace term'
+
+# All other Alacritty windows → servers workspace
 [[on-window-detected]]
 if.app-id = 'org.alacritty'
 run = 'move-node-to-workspace srv'
@@ -121,7 +129,17 @@ run = ['layout floating', 'move-node-to-workspace emu']
 if.app-id = 'com.tinyspeck.slackmacgap'
 run = 'move-node-to-workspace comm'
 
-# Calendar
+# Browser
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = 'move-node-to-workspace brow'
+
+# Calendar (Google Calendar PWA)
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep'
+run = 'move-node-to-workspace cal'
+
+# Calendar (Apple iCal — kept as fallback)
 [[on-window-detected]]
 if.app-id = 'com.apple.iCal'
 run = 'move-node-to-workspace cal'

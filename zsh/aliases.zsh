@@ -3,9 +3,7 @@ alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias lg="lazygit"
 alias gpl='git pull'
-alias cd="z"
 alias vim="nvim"
-alias c="clear"
 alias gs="git status"
 alias gp="git push"
 alias gch='git checkout'
@@ -181,6 +179,116 @@ function ios2 {
   echo "iOS 2 PID: $IOS2_PID"
 }
 
+function ios3 {
+  cd ~/projects/narwhal
+
+  echo "Starting packager..."
+  yarn native:packager &
+  PACKAGER_PID=$!
+
+  sleep 5
+
+  echo "Starting iOS simulator 1 (iPhone 16e)..."
+  DEFAULT_IOS_SIMULATOR="iPhone 16e" yarn ios:virtual
+
+  echo "Starting iOS simulator 2 (iPhone 17 Pro)..."
+  DEFAULT_IOS_SIMULATOR="iPhone 17 Pro" yarn ios:virtual
+
+  echo "Starting iOS simulator 3 (iPhone SE 3rd gen)..."
+  DEFAULT_IOS_SIMULATOR="iPhone SE (3rd generation)" yarn ios:virtual
+
+  echo 'All 3 iOS simulators started!'
+  echo "Packager PID: $PACKAGER_PID"
+}
+
 function zshr {
   exec zsh -l
 }
+
+WORKTREE_DIR="$HOME/Projects/PRs"
+
+function _wt_repo_name {
+  basename "$(git rev-parse --show-toplevel 2>/dev/null)"
+}
+
+function wt {
+  local branch=$1
+  local base=${2:-main}
+
+  if [ -z "$branch" ]; then
+    echo "Usage: wt <branch-name> [base-branch]"
+    return 1
+  fi
+
+  local repo_name=$(_wt_repo_name)
+  if [ -z "$repo_name" ]; then
+    echo "Not inside a git repository"
+    return 1
+  fi
+
+  local worktree_path="$WORKTREE_DIR/${repo_name}-${branch}"
+
+  if git show-ref --verify --quiet "refs/heads/$branch"; then
+    git worktree add "$worktree_path" "$branch"
+  else
+    git worktree add -b "$branch" "$worktree_path" "$base"
+  fi
+
+  echo "Worktree ready: $worktree_path"
+  echo "  cd $worktree_path"
+}
+
+function wtcd {
+  local branch=$1
+  local repo_name=$(_wt_repo_name)
+
+  if [ -z "$branch" ]; then
+    if command -v fzf &>/dev/null; then
+      local match=$(ls "$WORKTREE_DIR" | grep "^${repo_name}-" | sed "s/^${repo_name}-//" | fzf --height=10 --prompt="Select worktree: ")
+      [ -z "$match" ] && return 1
+      branch="$match"
+    else
+      echo "Usage: wtcd <branch-name>"
+      return 1
+    fi
+  fi
+
+  local worktree_path="$WORKTREE_DIR/${repo_name}-${branch}"
+
+  if [ -d "$worktree_path" ]; then
+    cd "$worktree_path"
+  else
+    echo "Worktree not found: $worktree_path"
+    return 1
+  fi
+}
+
+function wtls {
+  git worktree list
+}
+
+function wtrm {
+  local branch=$1
+
+  if [ -z "$branch" ]; then
+    echo "Usage: wtrm <branch-name>"
+    return 1
+  fi
+
+  local repo_name=$(_wt_repo_name)
+  local worktree_path="$WORKTREE_DIR/${repo_name}-${branch}"
+
+  git worktree remove "$worktree_path" 2>/dev/null || git worktree remove --force "$worktree_path"
+
+  echo -n "Delete branch '$branch' too? [y/N] "
+  read answer
+  if [[ "$answer" =~ ^[Yy]$ ]]; then
+    git branch -d "$branch" 2>/dev/null || git branch -D "$branch"
+    echo "Branch '$branch' deleted."
+  fi
+}
+
+# Alacritty workspace aliases — use direct binary so --title is set synchronously
+# (open -na passes args via Apple Events after window appears, breaking on-window-detected)
+alias term='/opt/homebrew/bin/alacritty --title term -e tmux new-session -A -s term'
+alias srv='/opt/homebrew/bin/alacritty --title srv'
